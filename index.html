@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>SpaceTrader</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="game">
+      <h1 id="stateTitle">SpaceTrader</h1>
+      <div id="systemInfo"></div>
+      <div id="buyCargo"></div>
+      <div id="shipyard"></div>
+      <div id="buyShip"></div>
+    </div>
+    
+    <script type="text/x-jsrender" id="systemInfoTemplate">
+      <h2 id="systemName" data-content="name"></h2>
+      <table>
+        <tr><td>Size</td><td>{{:size}}</td></tr>
+        <tr><td>Tech Level</td><td>{{:techLevel}}</td></tr>
+        <tr><td>Government</td><td>{{:government}}</td></tr>
+        <tr><td>Special Resources</td><td>{{:resources}}</td></tr>
+        <tr><td>Pirates</td><td>{{:pirates}}</td></tr>
+        <tr><td>Police</td><td>{{:police}}</td></tr>
+        <tr><td>Status</td><td>{{:status}}</td></tr>
+      </ul>
+    </script>
+    
+    <script type="text/x-jsrender" id="equipmentForSaleTemplate">
+      <h2>Buy Equipment</h2>
+      <table>
+      </table>
+    </script>
+    
+    <script type="text/x-jsrender" id="buyCargoTemplate">
+      <h2>Buy Cargo</h2>
+      <table>{{props market}}
+        <tr>
+          <td>{{if prop.buyPrice}}<button>{{:prop.quantity}}</button>{{/if}}</td>
+          <td>{{:key}}</td>
+          <td><button>Max</button></td>
+          <td>{{if prop.buyPrice}}{{:prop.buyPrice}} cr.{{else}}not sold{{/if}}</td>
+        </tr>
+      {{/props}}</table>
+    </script>
+    
+    <script type="text/x-jsrender" id="sellCargoTemplate">
+      <h2>Sell Cargo</h2>
+      <tr><td data-content="0"><td>Water</td><td>Max</td><td data-content="Water.sellPrice"></td></tr>
+        <tr><td data-content="0"><td>Furs</td><td>Max</td><td data-content="Furs.sellPrice"></td></tr>
+        <tr><td data-content="0"><td>Food</td><td>Max</td><td data-content="Food.sellPrice"></td></tr>
+        <tr><td data-content="0"><td>Ore</td><td>Max</td><td data-content="Ore.sellPrice"></td></tr>
+        <tr><td data-content="0"><td>Games</td><td>Max</td><td data-content="Games.sellPrice"></td></tr>
+        <tr><td data-content="0"><td>Ore</td><td>Max</td><td data-content="Firearms.sellPrice"></td></tr>
+        <tr><td data-content="0"><td>Ore</td><td>Max</td><td data-content="Ore.sellPrice"></td></tr>
+        <tr><td data-content="0"><td>Machines</td><td>Max</td><td data-content="Machines.sellPrice"></td></tr>
+        <tr><td data-content="0"><td>Narcotics</td><td>Max</td><td data-content="Narcotics.sellPrice"></td></tr>
+        <tr><td data-content="0"><td>Robots</td><td>Max</td><td data-content="Robots.sellPrice"></td></tr>
+      </table>
+    </script>
+    
+    
+    <script type="text/x-jsrender" id="shipyardTemplate">
+      <h2>Shipyard</h2>
+      <p>You have fuel to fly {{:ship.status.fuelCapacity}} parsecs.</p>
+      {{if ship.status.fuel == ship.status.fuelCapacity}}
+        <p>Your tank cannot hold more fuel.</p>
+      {{else}}
+        <p>A full tank costs {{:ship.status.fuelCost*(ship.status.fuelCapacity-ship.status.fuel)}} cr.</p>
+        <button>Buy Fuel</button>
+        <button> Buy Full Tank</button>
+      {{/if}}
+      <p>Your hull strength is at {{:ship.status.hull/ship.status.fullHull*100}}%.</p>
+      {{if ship.status.hull == ship.status.fullHull}}
+        <p>No repairs are needed.</p>
+      {{else}}
+        <p>Full repair will cost {{:ship.status.repairCost*(ship.status.fullHull-ship.status.hull)}} cr.</p>
+        <button>Buy Repairs</button>
+        <button>Buy Full Repairs</button>
+      {{/if}}
+      {{if escapePod.isAvailable }}
+        <p>You can buy an escape pod.</p>
+        <button>Buy Escape Pod</p>
+      {{else}}
+        <p>No escape pods are for sale.</p>
+      {{/if}}
+    </script>
+    
+    <script type="text/x-jsrender" id="buyShipTemplate">
+      <h2>Buy New Ship</h2>
+      <table>{{for shipsForSale}}
+        <tr>
+          <td>{{if price}}<button>Buy</button>{{/if}}</td>
+          <td>{{:type}}</td>
+          <td><button>Info</button>
+          <td>{{if price}}{{:price}} cr.{{else}}not sold{{/if}}</td>
+        </tr>
+      {{/for}}</table>
+    </script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jsrender.min.js"></script>
+    <script src="js/game.js"></script>
+  </body>
+</html>
