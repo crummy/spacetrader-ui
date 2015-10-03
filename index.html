@@ -20,11 +20,20 @@
   <body>
     <div id="game">
       <h1 id="stateTitle">SpaceTrader</h1>
+      <div id="actions"></div>
       <div id="systemInfo"></div>
       <div id="buyCargo"></div>
+      <div id="sellCargo"></div>
       <div id="shipyard"></div>
       <div id="buyShip"></div>
+      <div id="buyEquipment"></div>
     </div>
+    
+    <script type="text/x-jsrender" id="actionsTemplate">
+      {{for actions}}
+      <button>{{:name}}
+      {{/for}}
+    </script>
     
     <script type="text/x-jsrender" id="systemInfoTemplate">
       <h2 id="systemName" data-content="name"></h2>
@@ -39,9 +48,10 @@
       </ul>
     </script>
     
-    <script type="text/x-jsrender" id="equipmentForSaleTemplate">
+    <script type="text/x-jsrender" id="buyEquipmentTemplate">
       <h2>Buy Equipment</h2>
       <table>
+        TODO
       </table>
     </script>
     
@@ -59,17 +69,14 @@
     
     <script type="text/x-jsrender" id="sellCargoTemplate">
       <h2>Sell Cargo</h2>
-      <tr><td data-content="0"><td>Water</td><td>Max</td><td data-content="Water.sellPrice"></td></tr>
-        <tr><td data-content="0"><td>Furs</td><td>Max</td><td data-content="Furs.sellPrice"></td></tr>
-        <tr><td data-content="0"><td>Food</td><td>Max</td><td data-content="Food.sellPrice"></td></tr>
-        <tr><td data-content="0"><td>Ore</td><td>Max</td><td data-content="Ore.sellPrice"></td></tr>
-        <tr><td data-content="0"><td>Games</td><td>Max</td><td data-content="Games.sellPrice"></td></tr>
-        <tr><td data-content="0"><td>Ore</td><td>Max</td><td data-content="Firearms.sellPrice"></td></tr>
-        <tr><td data-content="0"><td>Ore</td><td>Max</td><td data-content="Ore.sellPrice"></td></tr>
-        <tr><td data-content="0"><td>Machines</td><td>Max</td><td data-content="Machines.sellPrice"></td></tr>
-        <tr><td data-content="0"><td>Narcotics</td><td>Max</td><td data-content="Narcotics.sellPrice"></td></tr>
-        <tr><td data-content="0"><td>Robots</td><td>Max</td><td data-content="Robots.sellPrice"></td></tr>
-      </table>
+      <table>{{props market ~cargo=ship.cargo}}
+        <tr>
+          <td>{{if prop.sellPrice}}<button>{{:~cargo[key]}}</button>{{/if}}</td>
+          <td>{{:key}}</td>
+          <td><button>Max</button></td>
+          <td>{{if prop.sellPrice}}{{:prop.sellPrice}} cr.{{else}}not traded{{/if}}</td>
+        </tr>
+      {{/props}}</table>
     </script>
     
     
@@ -110,6 +117,7 @@
         </tr>
       {{/for}}</table>
     </script>
+    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

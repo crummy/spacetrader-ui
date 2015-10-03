@@ -14,6 +14,9 @@ function displayState(data) {
 function displayInSystem(data) {  
   $("#stateTitle").text("In System: " + data.system.name);
   
+  var actionsTemplate = $.templates("#actionsTemplate");
+  $("#actions").append(actionsTemplate.render(data));
+  
   var systemInfoTemplate = $.templates("#systemInfoTemplate");
   $("#systemInfo").append(systemInfoTemplate.render(data.system));
 
@@ -25,4 +28,10 @@ function displayInSystem(data) {
   
   var buyCargoTemplate = $.templates("#buyCargoTemplate");
   $("#buyCargo").append(buyCargoTemplate.render(data));
+  
+  var sellCargoTemplate = $.templates("#sellCargoTemplate");
+  $("#sellCargo").append(sellCargoTemplate.render(data));
+  
+  var buyEquipmentTemplate = $.templates("#buyEquipmentTemplate");
+  $("#buyEquipment").append(buyEquipmentTemplate.render(data.equipmentForSale));
 }
