@@ -20,9 +20,34 @@ function displayGalaxy(data) {
   var draw = SVG("galaxy").size(width, height);
   for (var i in data.solarSystems) {
     var system = data.solarSystems[i];
-    draw.circle(10)
+    var circle = draw.circle(10)
+      .id(system.name)
       .attr({cx: stretch(system.x, data.width, width), cy: stretch(system.y, data.height, height)})
-      .fill(system.visited ? "yellow" : "blue");
+      .fill(system.visited ? "yellow" : "blue")
+      .click(function() { systemDetails(this) });
+    if (system.hasWormhole) {
+      draw.circle(10)
+        .id(system.name + "_wormhole")
+        .attr({cx: circle.cx() + 10, cy: circle.cy()})
+        .fill("red")
+        .data("destination", system.wormholeDestination)
+        .click(function() { drawWormhole(this) });
+    }
+  }
+  
+  function systemDetails(system) {
+    var name = system.id();
+    draw.text(name)
+      .attr({x: system.cx(), y: system.cy() + 10})
+      .font({size: 18})
+      .fill("black");
+    console.log(system.cx(), system.cy());
+  }
+  
+  function drawWormhole(wormhole) {
+    var d = SVG.get(wormhole.data("destination"));
+    draw.line(wormhole.cx(), wormhole.cy(), d.cx(), d.cy()).stroke("black");
+    console.log(wormhole.cx(), wormhole.cy(), d.cx(), d.cy());
   }
 }
 
