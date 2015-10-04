@@ -4,11 +4,30 @@ var d;
 $.getJSON(server)
   .done(displayState);
   
+$.getJSON(server + "/galaxy")
+  .done(displayGalaxy);
+  
 function displayState(data) {
   console.log(data);
   if (data.state == "InSystem") {
     displayInSystem(data);
   }
+}
+
+function displayGalaxy(data) {
+  var width = 800;
+  var height = 600;
+  var draw = SVG("galaxy").size(width, height);
+  for (var i in data.solarSystems) {
+    var system = data.solarSystems[i];
+    draw.circle(10)
+      .attr({cx: stretch(system.x, data.width, width), cy: stretch(system.y, data.height, height)})
+      .fill(system.visited ? "yellow" : "blue");
+  }
+}
+
+function stretch(value, upper, newUpper) {
+  return value/upper * newUpper;
 }
   
 function displayInSystem(data) {  
