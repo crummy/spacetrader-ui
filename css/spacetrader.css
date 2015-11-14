@@ -18,6 +18,9 @@ body {
 
 #game {
   display: none;
+  padding: 1em;
+  margin: 0 auto;
+  width: 800px;
 }
 
 #currentGames table {

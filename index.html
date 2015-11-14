@@ -56,13 +56,26 @@
     <div id="game">
       <h1 id="stateTitle">SpaceTrader</h1>
       <div id="actions"></div>
-      <div id="systemInfo"></div>
-      <div id="buyCargo"></div>
-      <div id="sellCargo"></div>
-      <div id="shipyard"></div>
-      <div id="buyShip"></div>
-      <div id="buyEquipment"></div>
-      <div id="galaxy"></div>
+
+      <div id="inSystem">
+        <ul class="nav nav-tabs" data-tabs="tabs">
+          <li class="active"><a href="#systemInfo" data-toggle="tab">System Info</a></li>
+          <li><a href="#buyCargo" data-toggle="tab">Buy Cargo</a></li>
+          <li><a href="#sellCargo" data-toggle="tab">Sell Cargo</a></li>
+          <li><a href="#shipyard" data-toggle="tab">Ship Yard</a></li>
+          <li><a href="#buyEquipment" data-toggle="tab">Buy Equipment</a></li>
+          <li><a href="#galaxyMap" data-toggle="tab">Galaxy Map</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="systemInfo" class="tab-pane active"></div>
+          <div id="buyCargo" class="tab-pane"></div>
+          <div id="sellCargo" class="tab-pane"></div>
+          <div id="shipyard" class="tab-pane"></div>
+          <div id="buyShip" class="tab-pane"></div>
+          <div id="buyEquipment" class="tab-pane"></div>
+          <div id="galaxyMap" class="tab-pane"></div>
+        </div>
+      </div>
     </div>
 
     <script type="text/x-jsrender" id="currentGamesTemplate">
