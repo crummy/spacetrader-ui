@@ -1,17 +1,37 @@
 var server="http://localhost:4567";
 var d;
 
-$.getJSON(server)
-  .done(displayState);
-  
-$.getJSON(server + "/galaxy")
-  .done(displayGalaxy);
+$.getJSON(server + "/games")
+  .done(displayGames);
   
 function displayState(data) {
-  console.log(data);
+  console.log("state: " + data.state);
   if (data.state == "InSystem") {
     displayInSystem(data);
   }
+}
+
+function displayGames(data) {
+  $("#game").show();
+  var currentGamesTemplate = $.templates("#currentGamesTemplate");
+  $("#currentGames").append(currentGamesTemplate.render({games: data, total: Object.keys(data).length}));
+}
+
+function newGame(event) {
+  // TODO: verify input
+  var form = $("#newGame");
+  $.post(server + "/games/new?" + form.serialize())
+    .done(function(gameId) {
+      loadGame(gameId);
+    });
+  return false;
+}
+
+function loadGame(id) {
+  $("#welcome").hide();
+  console.log("loading game " + id);
+  $.getJSON(server + "/game/" + id + "/state")
+    .done(displayState);
 }
 
 function displayGalaxy(data) {
