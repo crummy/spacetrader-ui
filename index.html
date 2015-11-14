@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>SpaceTrader</title>
+    
+    <link href="css/spacetrader.css" rel="stylesheet">
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -18,6 +20,20 @@
     <![endif]-->
   </head>
   <body>
+    <div id="welcome">
+      <h1 id="title">Welcome to Space Trader</h1>
+      <p>SpaceTrader is a game about making your way in a universe of adventure.
+      Chase pirates, smuggle goods, or become a vagabond as you through solar systems.
+      With a little luck and cunning, you might just earn enough credits to buy your own moon!</p>
+      <form>
+        <div>Commander Name: <input value="Jameson"></div>
+        <div>Fighter Skill: <input value="5"></div>
+        <div>Pilot Skill: <input value="5"></div>
+        <div>Trader Skill: <input value="5"></div>
+        <div>Engineer Skill: <input value="5"></div>
+        <submit class="btn btn-active" value="start">Start New Game</submit>
+      </form>
+    </div>
     <div id="game">
       <h1 id="stateTitle">SpaceTrader</h1>
       <div id="actions"></div>

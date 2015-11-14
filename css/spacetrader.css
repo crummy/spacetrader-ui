@@ -1,0 +1,18 @@
+#welcome {
+  width: 600px;
+  margin: 0 auto;
+  border: 1px solid #555;
+  padding: 1em;
+  background-color: #ddd;
+}
+
+body {
+  background-color: #333;
+  padding: 8em;
+}
+
+.title {
+  background-color: #336;
+  color: #ddd;
+  margin: 0;
+}
