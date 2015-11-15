@@ -66,12 +66,14 @@
           <li><a href="#buyEquipment" data-toggle="tab">Buy Equipment</a></li>
           <li><a href="#galaxyMap" data-toggle="tab">Galaxy Map</a></li>
         </ul>
+        <div id="alerts"></div>
         <div class="tab-content">
           <div id="systemInfo" class="tab-pane active"></div>
           <div id="buyCargo" class="tab-pane"></div>
           <div id="sellCargo" class="tab-pane"></div>
-          <div id="shipyard" class="tab-pane"></div>
-          <div id="buyShip" class="tab-pane"></div>
+          <div id="shipyard" class="tab-pane">
+            <div id="buyShip"></div>
+          </div>
           <div id="buyEquipment" class="tab-pane"></div>
           <div id="galaxyMap" class="tab-pane"></div>
         </div>
@@ -104,7 +106,7 @@
     
     <script type="text/x-jsrender" id="actionsTemplate">
       {{for actions}}
-      <button>{{:name}}</button>
+      <button onclick="notYetImplemented()">{{:name}}</button>
       {{/for}}
     </script>
     
@@ -129,24 +131,22 @@
     </script>
     
     <script type="text/x-jsrender" id="buyCargoTemplate">
-      <h2>Buy Cargo</h2>
       <table>{{props market}}
         <tr>
-          <td>{{if prop.buyPrice}}<button>{{:prop.quantity}}</button>{{/if}}</td>
+          <td>{{if prop.buyPrice}}<button onclick="notYetImplemented()">{{:prop.quantity}}</button>{{/if}}</td>
           <td>{{:key}}</td>
-          <td><button>Max</button></td>
+          <td>{{if prop.buyPrice}}<button onclick="buyCargo('{{:key}}')">Max</button>{{/if}}</td>
           <td>{{if prop.buyPrice}}{{:prop.buyPrice}} cr.{{else}}not sold{{/if}}</td>
         </tr>
       {{/props}}</table>
     </script>
     
     <script type="text/x-jsrender" id="sellCargoTemplate">
-      <h2>Sell Cargo</h2>
       <table>{{props market ~cargo=ship.cargo}}
         <tr>
-          <td>{{if prop.sellPrice}}<button>{{:~cargo[key]}}</button>{{/if}}</td>
+          <td>{{if prop.sellPrice}}<button onclick="notYetImplemented()">{{:~cargo[key]}}</button>{{/if}}</td>
           <td>{{:key}}</td>
-          <td><button>Max</button></td>
+          <td><button onclick="notYetImplemented()">Max</button></td>
           <td>{{if prop.sellPrice}}{{:prop.sellPrice}} cr.{{else}}not traded{{/if}}</td>
         </tr>
       {{/props}}</table>
@@ -154,38 +154,36 @@
     
     
     <script type="text/x-jsrender" id="shipyardTemplate">
-      <h2>Shipyard</h2>
       <p>You have fuel to fly {{:ship.status.fuelCapacity}} parsecs.</p>
       {{if ship.status.fuel == ship.status.fuelCapacity}}
         <p>Your tank cannot hold more fuel.</p>
       {{else}}
         <p>A full tank costs {{:ship.status.fuelCost*(ship.status.fuelCapacity-ship.status.fuel)}} cr.</p>
-        <button>Buy Fuel</button>
-        <button> Buy Full Tank</button>
+        <button onclick="notYetImplemented()">Buy Fuel</button>
+        <button onclick="notYetImplemented()"> Buy Full Tank</button>
       {{/if}}
       <p>Your hull strength is at {{:ship.status.hull/ship.status.fullHull*100}}%.</p>
       {{if ship.status.hull == ship.status.fullHull}}
         <p>No repairs are needed.</p>
       {{else}}
         <p>Full repair will cost {{:ship.status.repairCost*(ship.status.fullHull-ship.status.hull)}} cr.</p>
-        <button>Buy Repairs</button>
-        <button>Buy Full Repairs</button>
+        <button onclick="notYetImplemented()">Buy Repairs</button>
+        <button onclick="notYetImplemented()">Buy Full Repairs</button>
       {{/if}}
       {{if escapePod.isAvailable }}
         <p>You can buy an escape pod.</p>
-        <button>Buy Escape Pod</p>
+        <button onclick="notYetImplemented()">Buy Escape Pod</p>
       {{else}}
         <p>No escape pods are for sale.</p>
       {{/if}}
     </script>
     
     <script type="text/x-jsrender" id="buyShipTemplate">
-      <h2>Buy New Ship</h2>
       <table>{{for shipsForSale}}
         <tr>
-          <td>{{if price}}<button>Buy</button>{{/if}}</td>
+          <td>{{if price}}<button onclick="notYetImplemented()">Buy</button>{{/if}}</td>
           <td>{{:type}}</td>
-          <td><button>Info</button>
+          <td><button onclick="notYetImplemented()">Info</button>
           <td>{{if price}}{{:price}} cr.{{else}}not sold{{/if}}</td>
         </tr>
       {{/for}}</table>

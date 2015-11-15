@@ -1,5 +1,5 @@
 #welcome {
-  width: 600px;
+  width: 800px;
   margin: 0 auto;
   border: 1px solid #555;
   padding: 1em;
@@ -20,9 +20,20 @@ body {
   display: none;
   padding: 1em;
   margin: 0 auto;
+  border: 1px solid #555;
+  background-color: #ddd;
   width: 800px;
 }
 
-#currentGames table {
-  width: 100%
+table {
+  margin: 1em auto;
+  width: 100%;
+}
+
+table td {
+  padding: 0.25em;
+}
+
+thead, tfoot {
+  font-weight: bold;
 }

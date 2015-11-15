@@ -1,5 +1,5 @@
 var server="http://localhost:4567";
-var d;
+var id;
 
 $.getJSON(server + "/games")
   .done(displayGames);
@@ -12,7 +12,6 @@ function displayState(data) {
 }
 
 function displayGames(data) {
-  $("#game").show();
   var currentGamesTemplate = $.templates("#currentGamesTemplate");
   $("#currentGames").append(currentGamesTemplate.render({games: data, total: Object.keys(data).length}));
 }
@@ -21,14 +20,14 @@ function newGame(event) {
   // TODO: verify input
   var form = $("#newGame");
   $.post(server + "/games/new?" + form.serialize())
-    .done(function(gameId) {
-      loadGame(gameId);
-    });
+    .done(loadGame);
   return false;
 }
 
-function loadGame(id) {
+function loadGame(gameId) {
+  id = gameId;
   $("#welcome").hide();
+  $("#game").show();
   console.log("loading game " + id);
   $.getJSON(server + "/game/" + id + "/state")
     .done(displayState);
@@ -37,7 +36,7 @@ function loadGame(id) {
 function displayGalaxy(data) {
   var width = 800;
   var height = 600;
-  var draw = SVG("galaxy").size(width, height);
+  var draw = SVG("galaxyMap").size(width, height);
   for (var i in data.solarSystems) {
     var system = data.solarSystems[i];
     var circle = draw.circle(10)
@@ -98,4 +97,41 @@ function displayInSystem(data) {
   
   var buyEquipmentTemplate = $.templates("#buyEquipmentTemplate");
   $("#buyEquipment").append(buyEquipmentTemplate.render(data.equipmentForSale));
+
+  $.getJSON(server + "/game/" + id + "/galaxy")
+    .done(displayGalaxy);
+}
+
+function notYetImplemented() {
+  addAlert("Feature not yet implemented", "danger");
+}
+
+function addAlert(message, level) {
+  if (level == undefined) level == "warning";
+  $("<div>")
+    .addClass("alert")
+    .addClass("alert-" + level)
+    .html('<a href="#" class="close" data-dismiss="alert">&times;</a><strong>' + level + '</strong> ' + message)
+    .appendTo("#alerts");
+}
+
+function action(name, data) {
+  $.post("action", data)
+    .done(displayState)
+    .fail(addAlert);
+}
+
+function buyCargo(type, amount) {
+  if (amount == undefined) {
+    amount = maxCargoOf(type);
+  }
+  if (amount <= 0) {
+    addAlert("Cannot afford to purchase any " + type);
+    return false;
+  }
+  action("buyTradeItem", type, amount);
+}
+
+function maxCargoOf(type) {
+
 }
