@@ -33,7 +33,6 @@ function loadGame(gameId) {
     .done(displayState);
 }
 
-
 function notYetImplemented() {
   addAlert("Feature not yet implemented", "danger");
 }
@@ -48,7 +47,8 @@ function addAlert(message, level) {
 }
 
 function action(name, data) {
-  $.post("action", data)
+  var parameters = JSON.stringify({parameters: data});
+  $.post(server + "/game/" + id + "/action/" + name, parameters)
     .done(displayState)
     .fail(addAlert);
 }

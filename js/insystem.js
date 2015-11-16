@@ -76,7 +76,7 @@ function buyCargo(type, amount) {
     addAlert("Cannot afford to purchase any " + type);
     return false;
   }
-  action("buyTradeItem", type, amount);
+  action("buyTradeItem", {tradeItem: type, amount: amount});
 }
 
 function maxCargoOf(type) {
